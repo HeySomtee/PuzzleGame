@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FATES- Unofficial Picture Puzzle Game</title>
+    <link rel="stylesheet" href="/jquery/jquery-ui.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        body{
+            /* background-image: url('bk1.jpg'); */
+            background-repeat: none;
+            color: #fff;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .imgg img{
+            position: absolute;
+            z-index: -1;
+            margin-top: -10%;
+        
+        }
+
+        .white
+        {
+            position: absolute;
+            width: 100vw;
+            height: 70vh;
+            background-color: black;
+            z-index: -1;
+            margin-top: 20%;
+        }
+
+	body{margin:auto;}
+        #puzzle{width:600px;margin:auto;}
+        .tile{
+            margin-top: 0%;
+            background-image:url('hope.jpg');
+            width:200px;
+            height:200px;
+            float:left;
+            border:1px solid silver;
+            box-sizing:border-box;
+            overflow: hidde;
+        }
+        #tile1 { background-position:0 0 }
+        #tile2 { background-position:-200px -0px }
+        #tile3 { background-position:-400px -0px }
+        #tile4 { background-position:-0 -200px }
+        #tile5 { background-position:-200px -200px }
+        #tile6 { background-position:-400px -200px }
+        #tile7 { background-position:-0 -400px }
+        #tile8 { background-position:-200px -400px }
+        #tile9 { background-position:-400px -400px }
+		
+		#popup{position:absolute;width:100%;
+background:rgba(0,0,0,0.5);top:25%;
+text-align:center;color:#fff;padding:20px;}
+
+       
+    </style>
+</head>
+<body>
+
+    <div id="nav" style="position: absolute;">
+        <div id="dropdown" class="dropdown">
+            <h1 id="x" class="x"><i id="ham" class="fa-solid fa-bars"></i></h1>
+            <span style="display: none;" id="span"><i class="fa-solid fa-x"></i></span>
+            <span style="display: none;" id="span1"><i id="ham" class="fa-solid fa-bars"></i></span>
+        </div>
+
+        <div id="dropdown-content" class="dropdown-content">
+            <ul> 
+                <li id="lore">ROADMAP</li>
+                <li id="pilot">TEAM</li>
+                <li id="factions">DIVISIONS</li>
+                <li id="about">Creator</li>
+            </ul>
+        </div>
+
+        <div class="input div" id="input"> 
+            <img id="inn" class="inpu img" src="" alt="">
+            <p id="paragraph" style="z-index: 1; color: #fff; font-size: larger; font-weight: 600; margin-top: -35%;">Hello World</p>
+        </div>
+    </div>
+
+  <div class="container" style="padding-top: 3%;">
+
+      <div class="imgg">
+        <img src="/FiF7N2VWAAA9cn9.jpg" alt="">
+
+        <!-- <div class="white"></div> -->
+    </div>
+    <!-- <div ></div> -->
+    <!-- <img src="/FiF7N2VWAAA9cn9.jpg" class="white" alt=""> -->
+
+    <!-- <h1>FATES <img width="50%" src="/jspicturepuzzle/fates_logo.png" alt=""></h1> -->
+    <!-- <p style="text-align:center;">Game to help build and improve the FATES community where members can try it out whenever dey please (Desktop only)</p> -->
+    <!-- <p style="text-align:center;">Visit the official FATES twitter handle @<a href="https://twitter.com/TheTwoBoysx">here</a></p> -->
+    
+    <div id="puzzle" class="sortable">
+        <div id='tile1' class='tile'></div>
+        <div id='tile2' class='tile'></div>
+        <div id='tile3' class='tile'></div>
+        <div id='tile4' class='tile'></div>
+        <div id='tile5' class='tile'></div>
+        <div id='tile6' class='tile'></div>
+        <div id='tile7' class='tile'></div>
+        <div id='tile8' class='tile'></div>
+        <div id='tile9' class='tile'></div>
+    </div>
+
+   
+	
+	<div id='popup' style='display:block;'>
+<div id='message'>
+<h1>FATES - Unofficial Picture Puzzle</h1>
+Click on start button to shuffle and rearrage tiles. Solve the 
+puzzle by rearranging them to the picture shown.</div><br/><br/>
+<button id='startBtn' style='display:inline;' onclick="shuffle()">Start</button><br/><br/>
+</div>
+
+
+    <h2 style="position:absolute;top:0px;right:50px;padding:10px;" id='timerr'>TIMER: </h2>
+    <h1 style="position:absolute;top:0px;right:0px;padding:10px;" id='timer'></h1>
+    
+    <script src="jquery/jquery.min.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+   
+
+  </div>
+
+  
+	<!-- <script src="jquery/touch-dnd.js"></script> -->
+    <script>
+        var sec=0;
+        let timer;
+        function shuffle() {
+			$( "#popup" ).hide('');
+			$('#startBtn').hide();
+            let array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            array.sort(function(a, b){return 0.5 - Math.random()});
+            
+            $('#puzzle').html('');
+            for (var i = 0; i < array.length; i++) {
+                $( "#puzzle" ).append("<div id='tile"+array[i]+"' class='tile'></div>");
+            }
+            
+            sec=0;
+            timer = setInterval(function(){ 
+                sec=sec+1;
+                $( "#timer" ).html(sec);
+            }, 1000);
+        }
+
+        
+
+        $( ".sortable" ).sortable({connectWith: ".sortable"},
+        {
+            update: function( event, ui ) {
+                countRight=0;
+                $("#puzzle > div").each((index, elem) => {
+                if('tile'+(index+1)==elem.id){
+                    countRight=countRight+1;
+                }
+                if(countRight==9){
+                    let completedin=sec;
+                    sec=0;
+                    clearInterval(timer);
+                    $( "#timer" ).html('');
+					$('#startBtn').show();
+					$( "#popup" ).show();
+                    $( "#message" ).html("<h2>👏 Congratulations !</h2><h1>Salaam Rocky Bhai</h1> You have solved the puzzle in "+completedin+" seconds");
+                }
+            });
+            }
+        });
+		$("#sortable").disableSelection();
+
+        const clickx = document.getElementById('awa')
+        clickx.addEventListener('click', change)
+        function change(params) {
+            const collection = document.getElementsByClassName(".tile");
+for (let i = 0; i < collection.length; i++) {
+  collection[i].style.backgroundImage = 'pix10.png';
+}
+        }
+    
+        
+
+
+    </script>
+    <script src="/scriptt.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+.dropdown-content li
+{
+    font-size: 5vh;
+    padding: 5%;
+}
+
+.dropdown-content
+{
+    display: none;
+}
+
+/* .dropdown:hover + .dropdown-content
+{
+    display: block;
+} */
+
+.input
+{
+    width: 60vw;
+    height: 60vh;
+    background-color: rgb(80, 32, 80);
+    margin-top: -50%;
+    margin-left: 40%;
+    border-radius: 2%;
+    display: none;
+    place-items: center;
+}
+
+.inpu
+{
+    width: 60vw;
+    height: 60vh;
+    position: absolute;
+    /* border-radius: 50%; */
+    /* opacity: 0.5; */
+    /* margin-left: 0%;  */
+    
+}
+
+.fa-solid
+{
+    margin-left: 10%;
+}
